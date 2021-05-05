@@ -7,7 +7,7 @@ let outputElementA = document.querySelector('#outputa');
 let outputElementB = document.querySelector('#outputb');
 let inputPathA = document.querySelector('#inpatha');
 let inputPathB = document.querySelector('#inpathb');
-let outputPath = document.querySelector('#outpathb');
+let outputPath = document.querySelector('#outpath');
 let outputFile = document.querySelector('#outfile');
 let outputCmd = document.querySelector('#outcmd');
 
@@ -34,6 +34,7 @@ const readFile = (file, outputElement, sdnumber) => {
         let logData = parseLogdata(e.target.result);
         console.log(logData)
         displayListTxt(logData, sdnumber)
+        displayCmd(logData, sdnumber)
         displayResult(logData, outputElement)
     };
     reader.onerror = e => {
@@ -77,6 +78,7 @@ const displayResult = (data, outputElement) => {
     outputElement.innerHTML = "";
     let output = document.createElement("ul");
     output.insertAdjacentHTML('beforeend', `<li>Session ID: ${dosToID(data[0])}</li>\n`)
+    output.insertAdjacentHTML('beforeend', `<li>Number of channels recorded: ${data[1]}</li>\n`)
     output.insertAdjacentHTML('beforeend', `<li>Sample Rate: ${data[2]}</li>\n`)
     output.insertAdjacentHTML('beforeend', `<li>Creation Date: ${dosDateTimeToString(data[3])}</li>\n`)
     output.insertAdjacentHTML('beforeend', `<li>Number of files (takes) in session: ${data[4]}</li>\n`)
@@ -99,6 +101,15 @@ const displayListTxt = (data, sdnumber) => {
         outputFile.innerHTML = "\n"
         for (let i = 0; i < data[4]; i++) {
             outputFile.insertAdjacentText('beforeend', "file '" + inputPathA.value + "\\" + pad(i, 8) + ".WAV'\n")
+        }
+    }
+}
+
+const displayCmd = (data, sdnumber) => {
+    if(!sdnumber) {
+        outputCmd.innerHTML = "\nffmpeg -f concat -i list.txt \\\n"
+        for (let i = 0; i < data[1]; i++) {
+            outputCmd.insertAdjacentText('beforeend', "    -map_channel 0.0." + i + " " + outputPath.value + "\\" + pad(i+1, 2) + ".wav \\\n")
         }
     }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Live JS Scripts</title>
+</head>
+<body>
+    <h1>X-Live JS Scripts</h1>
+    <p>Select your SE_LOG.BIN to extract all data</p>
+    <form id="formulier">
+        <input type="file" name="seloga" id="seloga"><br>
+        <input type="file" name="selogb" id="selogb"><br>
+        Path of SD A files: <input type="text" name="inpatha" id="inpatha" value="E:\X-Live_Development\2-5-2021\X_LIVEA\52A26D48"><br>
+        Path of SD B files: <input type="text" name="inpathb" id="inpathb" value="E:\X-Live_Development\2-5-2021\X_LIVEB\52A26D48"><br>
+        Path to output final stems: <input type="text" name="outpath" id="outpath" value="E:\X-Live_Development\Testoutput"><br>
+        <input type="submit" value="Load">
+    </form>
+    <h3>Data SD A</h3>
+    <p id="outputa"></p>
+    <h3>Data SD B</h3>
+    <p id="outputb"></p>
+    <h4>list.txt contents</h4>
+    <code><pre id="outfile">
+    </pre></code>
+    <h4>ffmpeg command</h4>
+    <code><pre id="outcmd">
+ffmpeg -f concat -i list.txt \
+    -map_channel 0.0.0 U:/01.wav \
+    -map_channel 0.0.1 U:/02.wav \
+    -map_channel 0.0.3 U:/04.wav \
+    -map_channel 0.0.5 U:/06.wav \
+    -map_channel 0.0.14 U:/15.wav \
+    -map_channel 0.0.15 U:/16.wav
+    </pre></code>
+    <script src="main.js"></script>
+</body>
+</html>

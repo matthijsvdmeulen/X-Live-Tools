@@ -1,6 +1,6 @@
 
 
-let formulier = document.querySelector('#formulier');
+let form = document.querySelector('#form');
 let logbestandA = document.querySelector('#seloga');
 let logbestandB = document.querySelector('#selogb');
 let outputElementA = document.querySelector('#outputa');
@@ -13,7 +13,7 @@ let outputCmd = document.querySelector('#outcmd');
 let outputCmd2 = document.querySelector('#outcmd2');
 let channels = document.querySelector('#channels');
 
-formulier.addEventListener("submit", e => {
+form.addEventListener("submit", e => {
     e.preventDefault();
 
     if(logbestandA.value == '') {
@@ -94,12 +94,12 @@ const displayResult = (data, outputElement) => {
 const displayListTxt = (data, sdnumber) => {
     if(sdnumber) {
         for (let i = 0; i < data[4]; i++) {
-            outputFile.insertAdjacentText('beforeend', "file '" + inputPathB.value + "\\" + pad(i+1, 8) + ".WAV'\n")
+            outputFile.insertAdjacentText('beforeend', "file '" + inputPathB.value + (inputPathB.value===""?"":"\\") + pad(i+1, 8) + ".WAV'\n")
         }
     } else {
-        outputFile.innerHTML = "\n"
+        outputFile.innerHTML = ""
         for (let i = 0; i < data[4]; i++) {
-            outputFile.insertAdjacentText('beforeend', "file '" + inputPathA.value + "\\" + pad(i+1, 8) + ".WAV'\n")
+            outputFile.insertAdjacentText('beforeend', "file '" + inputPathA.value + (inputPathA.value===""?"":"\\") + pad(i+1, 8) + ".WAV'\n")
         }
     }
 }
@@ -113,12 +113,12 @@ const displayCmd = (data, sdnumber) => {
         }
     }
     if(!sdnumber) {
-        outputCmd.innerHTML = "\nffmpeg -f concat -safe 0 -i list.txt \\\n"
-        outputCmd2.innerHTML = "\nffmpeg -f concat -safe 0 -i list.txt"
+        outputCmd.innerHTML = "ffmpeg -f concat -safe 0 -i list.txt \\\n"
+        outputCmd2.innerHTML = "ffmpeg -f concat -safe 0 -i list.txt"
         for (let i = 0; i < data[1]; i++) {
             if(channelsArray.length == 0 || channelsArray.includes(i+1)) {
-                outputCmd.insertAdjacentText('beforeend', "-map_channel 0.0." + i + " " + outputPath.value + "\\" + pad(i+1, 2) + ".wav \\\n")
-                outputCmd2.insertAdjacentText('beforeend', " -map_channel 0.0." + i + " " + outputPath.value + "\\" + pad(i+1, 2) + ".wav")
+                outputCmd.insertAdjacentText('beforeend', "-map_channel 0.0." + i + " " + outputPath.value + (outputPath.value===""?"":"\\") + pad(i+1, 2) + ".wav \\\n")
+                outputCmd2.insertAdjacentText('beforeend', " -map_channel 0.0." + i + " " + outputPath.value + (outputPath.value===""?"":"\\") + pad(i+1, 2) + ".wav")
             }
         }
     }

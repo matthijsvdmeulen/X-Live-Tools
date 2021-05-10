@@ -117,8 +117,8 @@ const displayCmd = (data, sdnumber) => {
         outputCmd2.innerHTML = "ffmpeg -f concat -safe 0 -i list.txt"
         for (let i = 0; i < data[1]; i++) {
             if(channelsArray.length == 0 || channelsArray.includes(i+1)) {
-                outputCmd.insertAdjacentText('beforeend', "-map_channel 0.0." + i + " " + outputPath.value + (outputPath.value===""?"":"\\") + pad(i+1, 2) + ".wav \\\n")
-                outputCmd2.insertAdjacentText('beforeend', " -map_channel 0.0." + i + " " + outputPath.value + (outputPath.value===""?"":"\\") + pad(i+1, 2) + ".wav")
+                outputCmd.insertAdjacentText('beforeend', "-map_channel 0.0." + i + " \"" + outputPath.value + (outputPath.value===""?"":"\\") + pad(i+1, 2) + ".wav\" \\\n")
+                outputCmd2.insertAdjacentText('beforeend', " -map_channel 0.0." + i + " \"" + outputPath.value + (outputPath.value===""?"":"\\") + pad(i+1, 2) + ".wav\"")
             }
         }
     }
